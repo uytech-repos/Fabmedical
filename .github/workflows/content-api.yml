@@ -43,9 +43,7 @@ jobs:
         registry: ${{ env.containerRegistry }}
         repository: ${{ env.imageRepository }}
         tags: ${{ env.tag }},latest
-
-    - name: context aks
-      uses: Azure/aks-set-context@v1
+    - uses: Azure/aks-set-context@v1
       with:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
         cluster-name: '${{ env.clusterName }}'
@@ -57,8 +55,8 @@ jobs:
          manifests: |
           api.deployment.yml
           api.service.yml
-        images: |
+         images: |
           ${{ env.containerRegistry }}.azurecr.io/${{ env.imageRepository }}:${{ env.tag }}
-        imagepullsecrets: |
+         imagepullsecrets: |
           ingress-demo-secret
-        namespace: ingress-demo
+         namespace: ingress-demo
